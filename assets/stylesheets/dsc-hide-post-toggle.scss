@@ -1,0 +1,19 @@
+// assets/stylesheets/discourse-hide-post-toggle.scss
+
+.hide-post-toggle-button {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3498db; /* Blue color, you can change this */
+    border: 1px solid #2980b9; /* Darker shade of blue for border */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #2980b9; /* Darker shade of blue on hover */
+    }
+  }
+  

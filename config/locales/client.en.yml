@@ -1,0 +1,5 @@
+en:
+  #button_title : "Hide Posts"
+  button_title :
+    show_post: "Show Post"
+    hide_post: "Hide Post"

@@ -1,0 +1,6 @@
+en:
+  site_settings:
+    discourse_hide_post_toggle_enabled: "Enable hide post toggle"
+    ghostmode_topics: "Topics subject to the ghostmode"
+    ghostmode_posts: "Posts subject to the ghostmode"
+    ghostmode_show_to_staff: "Show marked posts to staff"

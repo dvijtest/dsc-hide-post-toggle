@@ -1,0 +1,13 @@
+plugins:
+  discourse_hide_post_toggle_enabled:
+    default: true
+    client: true
+  ghostmode_topics:
+    default: "0"
+    client: true
+  ghostmode_posts:
+    default: "0"
+    client: true
+  ghostmode_show_to_staff:
+    default: false
+    client: true
