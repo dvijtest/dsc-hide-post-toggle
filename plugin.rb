@@ -1,7 +1,7 @@
 
 # name: dsc-hide-post-toggle
 # about: Toggle button to hide/show posts, visible to admins
-# version: 0.6
+# version: 0.7
 # authors: dvijtest
 # url: null
 

@@ -16,6 +16,8 @@ export default {
                 const postId = model.id;
                 const topicId = model.topicId;
 
+                console.log('model',model);
+
                 const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
 
                 const dataPostIdParent = dataPostId.parentElement;
@@ -29,12 +31,16 @@ export default {
                 if (isPostHidden) {
                     removeSetting(api, postId);
                     alert(`Id : ${newGhostModePosts} Removed`);
-                    dataPostIdParent.style.backgroundColor = 'yellow';
+                    //dataPostIdParent.style.backgroundColor = 'yellow';
+                    dataPostId.style.backgroundColor = 'initial';
+
+                    //document.querySelector("#post_1 > div > div.topic-body.clearfix > div.regular.contents > section > nav > div > span");
                 } else {
                     //const showButtonParentElement = showButtonElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
                     addSetting(api, postId);
                     alert(`Id : ${newGhostModePosts} Added`);
-                    dataPostIdParent.style.backgroundColor = 'red';
+                    //dataPostIdParent.style.backgroundColor = 'red';
+                    dataPostId.style.backgroundColor = 'red';
                 }
             });
 
@@ -45,6 +51,8 @@ export default {
                 const isPostHidden = ghostmode_posts.includes(postId);
                 return {
                     action: 'toggleHidePost',
+                    //icon: isPostHidden ? 'far-eye' : 'far-eye-slash',
+                    //title: isPostHidden ? 'button_title.show_post' : 'button_title.hide_post',
                     icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
                     title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
                     position: 'first',
@@ -54,14 +62,15 @@ export default {
             //
             api.registerTopicFooterButton({
                 id: "toggleHidePost",
-                key: "flag",
-                icon: "flag",
+                key: "far-eye",
+                icon: "far-eye",
                 action() {
                     const model = this.attrs;
                     const topicId = model.topic.value.id;
                     toggleHideTopic(api, topicId);
                 }
             });
+
             //
 
         });
@@ -111,17 +120,20 @@ function toggleHideTopic(api, topicId) {
     //const currentTopicIds = currentGhostmodeTopics.split('|');
 
     const isTopicHidden = currentGhostmodeTopics.includes(topicId);
+    const toggleTopicElement = document.querySelector("#topic-footer-button-toggleHidePost");
 
     if (isTopicHidden) {
         // Remove topic ID
         const newGhostmodeTopics = controller.ghostmode_topics.replace(new RegExp(`\\|${topicId}`, 'g'), '');
         updateGhostmodeTopics(api, newGhostmodeTopics);
         alert(`Topic ID ${topicId} Removed`);
+        toggleTopicElement.style.backgroundColor = 'yellow';
     } else {
         // Add topic ID
         const newGhostmodeTopics = `${currentGhostmodeTopics ? currentGhostmodeTopics + '|' : ''}${topicId}`;
         updateGhostmodeTopics(api, newGhostmodeTopics);
         alert(`Topic ID ${topicId} Added`);
+        toggleTopicElement.style.backgroundColor = 'red';
     }
 }
 
