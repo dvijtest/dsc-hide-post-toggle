@@ -14,33 +14,39 @@ export default {
             api.attachWidgetAction('post-menu', 'toggleHidePost', function () {
                 const model = this.attrs;
                 const postId = model.id;
-                const topicId = model.topicId;
+                //const topicId = model.topicId;
 
-                console.log('model',model);
+                //console.log('model',model);
 
-                const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
+                //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
 
-                const dataPostIdParent = dataPostId.parentElement;
+                //const dataPostIdParent = dataPostId.parentElement;
                 const siteSettings = api.container.lookup('site-settings:main');
                 const ghostmode_posts = siteSettings.ghostmode_posts;
-                const ghostmode_topics = siteSettings.ghostmode_topics;
+                //const ghostmode_topics = siteSettings.ghostmode_topics;
 
                 const isPostHidden = ghostmode_posts.includes(postId);
+                //console.log('isposthidden:', isPostHidden);
                 const newGhostModePosts = postId;
+
+                //const showHideButton = document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.show_post]"]`) || document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.hide_post]"]`) ;
+
+                const msg = model.cooked;
+                let trimmedMsg = msg.substring(3, msg.length - 4);
+                let first25trimmedMsg = trimmedMsg.substring(0, 25);
 
                 if (isPostHidden) {
                     removeSetting(api, postId);
-                    alert(`Id : ${newGhostModePosts} Removed`);
+                    alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Removed\nPost : ${first25trimmedMsg}`);
                     //dataPostIdParent.style.backgroundColor = 'yellow';
-                    dataPostId.style.backgroundColor = 'initial';
-
-                    //document.querySelector("#post_1 > div > div.topic-body.clearfix > div.regular.contents > section > nav > div > span");
+                    //dataPostId.style.backgroundColor = 'initial';
+                    //showHideButton.style.backgroundColor = 'yellow';
                 } else {
-                    //const showButtonParentElement = showButtonElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
                     addSetting(api, postId);
-                    alert(`Id : ${newGhostModePosts} Added`);
+                    alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Added\nPost : ${first25trimmedMsg}`);
                     //dataPostIdParent.style.backgroundColor = 'red';
-                    dataPostId.style.backgroundColor = 'red';
+                    //dataPostId.style.backgroundColor = 'red';
+                    //showHideButton.style.backgroundColor = 'red';
                 }
             });
 
@@ -51,11 +57,14 @@ export default {
                 const isPostHidden = ghostmode_posts.includes(postId);
                 return {
                     action: 'toggleHidePost',
-                    //icon: isPostHidden ? 'far-eye' : 'far-eye-slash',
-                    //title: isPostHidden ? 'button_title.show_post' : 'button_title.hide_post',
-                    icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
-                    title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
                     position: 'first',
+
+                    className: isPostHidden ? 'button.topic_visible custom-class-visible' : 'button.topic_hidden custom-class-hidden',
+                    icon: isPostHidden ? 'far-eye' : 'far-eye-slash',
+                    title: isPostHidden ? 'button_title.show_post' : 'button_title.hide_post',
+
+                    //icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
+                    //title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
                 };
             });
 
@@ -70,7 +79,6 @@ export default {
                     toggleHideTopic(api, topicId);
                 }
             });
-
             //
 
         });

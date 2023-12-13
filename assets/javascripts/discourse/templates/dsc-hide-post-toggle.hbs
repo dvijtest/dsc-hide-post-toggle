@@ -1,0 +1,11 @@
+<div class="dsc-hide-post-toggle">
+  {{#if isPostHidden}}
+    <button class="button topic_visible custom-class-visible" title="{{i18n 'button_title.show_post'}}">
+      <i class="fas far-eye-slash" style="color: red;"></i>
+    </button>
+  {{else}}
+    <button class="button topic_hidden custom-class-hidden" title="{{i18n 'button_title.hide_post'}}">
+      <i class="fas far-eye" style="color: green;"></i>
+    </button>
+  {{/if}}
+</div>
