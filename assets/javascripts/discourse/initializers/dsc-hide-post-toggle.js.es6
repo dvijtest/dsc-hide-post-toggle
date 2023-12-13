@@ -13,15 +13,13 @@ export default {
 
             api.attachWidgetAction('post-menu', 'toggleHidePost', function () {
                 const model = this.attrs;
+                //console.log('model',model);
+
                 const postId = model.id;
                 //const topicId = model.topicId;
 
-                //console.log('model',model);
-
-                //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
-
-                //const dataPostIdParent = dataPostId.parentElement;
                 const siteSettings = api.container.lookup('site-settings:main');
+
                 const ghostmode_posts = siteSettings.ghostmode_posts;
                 //const ghostmode_topics = siteSettings.ghostmode_topics;
 
@@ -29,6 +27,8 @@ export default {
                 //console.log('isposthidden:', isPostHidden);
                 const newGhostModePosts = postId;
 
+                //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
+                //const dataPostIdParent = dataPostId.parentElement;
                 //const showHideButton = document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.show_post]"]`) || document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.hide_post]"]`) ;
 
                 const msg = model.cooked;
@@ -38,18 +38,21 @@ export default {
                 if (isPostHidden) {
                     removeSetting(api, postId);
                     alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Removed\nPost : ${first25trimmedMsg}`);
+
                     //dataPostIdParent.style.backgroundColor = 'yellow';
                     //dataPostId.style.backgroundColor = 'initial';
                     //showHideButton.style.backgroundColor = 'yellow';
                 } else {
                     addSetting(api, postId);
                     alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Added\nPost : ${first25trimmedMsg}`);
+
                     //dataPostIdParent.style.backgroundColor = 'red';
                     //dataPostId.style.backgroundColor = 'red';
                     //showHideButton.style.backgroundColor = 'red';
                 }
             });
 
+            // s - Button to Hide Post
             api.addPostMenuButton('toggleHidePostButton', (model) => {
                 const siteSettings = api.container.lookup('site-settings:main');
                 const ghostmode_posts = siteSettings.ghostmode_posts;
@@ -67,8 +70,9 @@ export default {
                     //title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
                 };
             });
+            // e - Button to Hide Post
 
-            //
+            // s - Button to Hide Topic
             api.registerTopicFooterButton({
                 id: "toggleHidePost",
                 key: "far-eye",
@@ -79,7 +83,7 @@ export default {
                     toggleHideTopic(api, topicId);
                 }
             });
-            //
+            // e - Button to Hide Topic
 
         });
     },
