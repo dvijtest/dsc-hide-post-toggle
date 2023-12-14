@@ -60,19 +60,11 @@ export default {
                 removeSetting(api, postId);
                 alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Removed\nPost : ${first25trimmedMsg}`);
                 location.reload();
-
-                //history.go(0);
-                //api.replaceIcon('far-eye-slash', 'far-eye');
-
             } else {
                 addSetting(api, postId);
                 // eslint-disable-next-line no-alert
                 alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Added\nPost : ${first25trimmedMsg}`);
                 location.reload();
-
-                //history.go(0);
-                //api.replaceIcon('far-eye', 'far-eye-slash');
-
             }
         });
 
@@ -85,11 +77,6 @@ export default {
             return {
                 action: 'toggleHidePost',
                 position: 'first',
-
-                //className: isPostHidden ? 'button.topic_visible custom-class-visible' : 'button.topic_hidden custom-class-hidden',
-                //icon: isPostHidden ? 'far-eye' : 'far-eye-slash',
-                //title: isPostHidden ? 'Show Post' : 'Hide Post',
-
                 className: isPostHidden ? 'button.topic_hidden custom-class-hidden' : 'button.topic_visible custom-class-visible',
                 icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
                 title: isPostHidden ? 'Hide Post' : 'Show Post',
