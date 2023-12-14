@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { h } from 'virtual-dom';
 import { ajax } from 'discourse/lib/ajax';
 import { withPluginApi } from 'discourse/lib/plugin-api';
@@ -10,85 +11,103 @@ export default {
             if (!currentUser || !currentUser.admin) {
                 return;
             }
+        //----------------------------------------------------------------
+            console.log("At Start of plugin");
 
-            api.attachWidgetAction('post-menu', 'toggleHidePost', function () {
-                const model = this.attrs;
-                //console.log('model',model);
+        //----------------------------------------------------------------
 
-                const postId = model.id;
-                //const topicId = model.topicId;
+        // Working of Hiding and showing of posts.
+        api.attachWidgetAction('post-menu', 'toggleHidePost', function () {
+            const model = this.attrs;
+            //console.log('model',model);
 
-                const siteSettings = api.container.lookup('site-settings:main');
+            const postId = model.id;
+            //const topicId = model.topicId;
 
-                const ghostmode_posts = siteSettings.ghostmode_posts;
-                //const ghostmode_topics = siteSettings.ghostmode_topics;
+            const siteSettings = api.container.lookup('site-settings:main');
 
-                const isPostHidden = ghostmode_posts.includes(postId);
-                //console.log('isposthidden:', isPostHidden);
-                const newGhostModePosts = postId;
+            const ghostmode_posts = siteSettings.ghostmode_posts;
+            //const ghostmode_topics = siteSettings.ghostmode_topics;
 
-                //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
-                //const dataPostIdParent = dataPostId.parentElement;
-                //const showHideButton = document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.show_post]"]`) || document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.hide_post]"]`) ;
+            const isPostHidden = ghostmode_posts.includes(postId);
+            console.log('isPostHidden:', typeof (isPostHidden), isPostHidden);
 
-                const msg = model.cooked;
-                let trimmedMsg = msg.substring(3, msg.length - 4);
-                let first25trimmedMsg = trimmedMsg.substring(0, 25);
+            const newGhostModePosts = postId;
 
-                if (isPostHidden) {
-                    removeSetting(api, postId);
-                    alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Removed\nPost : ${first25trimmedMsg}`);
+            //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
+            //const dataPostIdParent = dataPostId.parentElement;
+            //const showHideButton = document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.show_post]"]`) || document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.hide_post]"]`) ;
+            //dataPostIdParent.style.backgroundColor = 'yellow';
+            //dataPostId.style.backgroundColor = 'initial';
+            //showHideButton.style.backgroundColor = 'yellow';
 
-                    //dataPostIdParent.style.backgroundColor = 'yellow';
-                    //dataPostId.style.backgroundColor = 'initial';
-                    //showHideButton.style.backgroundColor = 'yellow';
-                } else {
-                    addSetting(api, postId);
-                    alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Added\nPost : ${first25trimmedMsg}`);
+            const msg = model.cooked;
+            let trimmedMsg = msg.substring(3, msg.length - 4);
+            let first25trimmedMsg = trimmedMsg.substring(0, 25);
 
-                    //dataPostIdParent.style.backgroundColor = 'red';
-                    //dataPostId.style.backgroundColor = 'red';
-                    //showHideButton.style.backgroundColor = 'red';
-                }
-            });
+            const isPostHiddenTrue = isPostHidden === true;
+            console.log('isPostHiddenTrue', isPostHiddenTrue);
 
-            // s - Button to Hide Post
-            api.addPostMenuButton('toggleHidePostButton', (model) => {
-                const siteSettings = api.container.lookup('site-settings:main');
-                const ghostmode_posts = siteSettings.ghostmode_posts;
-                const postId = model.id;
-                const isPostHidden = ghostmode_posts.includes(postId);
-                return {
-                    action: 'toggleHidePost',
-                    position: 'first',
 
-                    className: isPostHidden ? 'button.topic_visible custom-class-visible' : 'button.topic_hidden custom-class-hidden',
-                    icon: isPostHidden ? 'far-eye' : 'far-eye-slash',
-                    title: isPostHidden ? 'button_title.show_post' : 'button_title.hide_post',
+            if (isPostHidden) {
+                removeSetting(api, postId);
+                alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Removed\nPost : ${first25trimmedMsg}`);
+                location.reload();
 
-                    //icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
-                    //title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
-                };
-            });
-            // e - Button to Hide Post
+                //history.go(0);
+                //api.replaceIcon('far-eye-slash', 'far-eye');
 
-            // s - Button to Hide Topic
-            api.registerTopicFooterButton({
-                id: "toggleHidePost",
-                key: "far-eye",
-                icon: "far-eye",
-                action() {
-                    const model = this.attrs;
-                    const topicId = model.topic.value.id;
-                    toggleHideTopic(api, topicId);
-                }
-            });
-            // e - Button to Hide Topic
+            } else {
+                addSetting(api, postId);
+                // eslint-disable-next-line no-alert
+                alert(`Username : ${model.username}\nPost Id : ${newGhostModePosts} Added\nPost : ${first25trimmedMsg}`);
+                location.reload();
 
+                //history.go(0);
+                //api.replaceIcon('far-eye', 'far-eye-slash');
+
+            }
         });
-    },
+
+        // s - Button to Hide Post
+        api.addPostMenuButton('toggleHidePostButton', (model) => {
+            const siteSettings = api.container.lookup('site-settings:main');
+            const ghostmode_posts = siteSettings.ghostmode_posts;
+            const postId = model.id;
+            const isPostHidden = ghostmode_posts.includes(postId);
+            return {
+                action: 'toggleHidePost',
+                position: 'first',
+
+                //className: isPostHidden ? 'button.topic_visible custom-class-visible' : 'button.topic_hidden custom-class-hidden',
+                //icon: isPostHidden ? 'far-eye' : 'far-eye-slash',
+                //title: isPostHidden ? 'Show Post' : 'Hide Post',
+
+                className: isPostHidden ? 'button.topic_hidden custom-class-hidden' : 'button.topic_visible custom-class-visible',
+                icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
+                title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
+            };
+        });
+        // e - Button to Hide Post
+
+        // s - Button to Hide Topic
+        api.registerTopicFooterButton({
+            id: "toggleHidePost",
+            key: "far-eye",
+            icon: "far-eye",
+            action() {
+                const model = this.attrs;
+                const topicId = model.topic.value.id;
+                toggleHideTopic(api, topicId);
+            }
+        });
+        // e - Button to Hide Topic
+
+    });
+},
 };
 
+// Add the postId to the site settings
 function addSetting(api, postId) {
     const controller = api.container.lookup('site-settings:main');
     const newGhostmodePosts = `${controller.ghostmode_posts ? controller.ghostmode_posts + '|' : ''}${postId}`;
@@ -105,6 +124,7 @@ function addSetting(api, postId) {
     });
 }
 
+// Remove the postId from the site settings
 function removeSetting(api, postIdToRemove) {
     const controller = api.container.lookup('site-settings:main');
     const currentGhostmodePosts = controller.ghostmode_posts || '';
