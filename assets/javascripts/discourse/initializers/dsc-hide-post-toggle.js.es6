@@ -11,7 +11,7 @@ export default {
             if (!currentUser || !currentUser.admin) {
                 return;
             }
-        //
+        //Loading
         api.decorateWidget('post:after', helper => {
             const postInTopicId = helper.attrs.topicId;
             const str_postInTopicId = postInTopicId.toString();
@@ -27,31 +27,15 @@ export default {
             }
          });
         //
-
         // Working of Hiding and showing of posts.
         api.attachWidgetAction('post-menu', 'toggleHidePost', function () {
             const model = this.attrs;
-            //console.log('model',model);
-
             const postId = model.id;
             //const topicId = model.topicId;
-
             const siteSettings = api.container.lookup('site-settings:main');
-
             const ghostmode_posts = siteSettings.ghostmode_posts;
-            //const ghostmode_topics = siteSettings.ghostmode_topics;
-
             const isPostHidden = ghostmode_posts.includes(postId);
-
             const newGhostModePosts = postId;
-
-            //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
-            //const dataPostIdParent = dataPostId.parentElement;
-            //const showHideButton = document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.show_post]"]`) || document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.hide_post]"]`) ;
-            //dataPostIdParent.style.backgroundColor = 'yellow';
-            //dataPostId.style.backgroundColor = 'initial';
-            //showHideButton.style.backgroundColor = 'yellow';
-
             const msg = model.cooked;
             let trimmedMsg = msg.substring(3, msg.length - 4);
             let first25trimmedMsg = trimmedMsg.substring(0, 25);
@@ -96,7 +80,6 @@ export default {
             }
         });
         // e - Button to Hide Topic
-
     });
 },
 };
@@ -125,7 +108,6 @@ function removeSetting(api, postIdToRemove) {
     const controller = api.container.lookup('site-settings:main');
     const currentGhostmodePosts = controller.ghostmode_posts || '';
     const currentPostIds = currentGhostmodePosts.split('|');
-
     // Remove the postId to delete
     const newGhostmodePosts = controller.ghostmode_posts.replace(new RegExp(`\\|${postIdToRemove}`, 'g'), '');
 
@@ -182,3 +164,9 @@ function updateGhostmodeTopics(api, newGhostmodeTopics) {
     });
 }
 
+            //const dataPostId = document.querySelector(`[data-post-id="${postId}"]`);
+            //const dataPostIdParent = dataPostId.parentElement;
+            //const showHideButton = document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.show_post]"]`) || document.querySelector(`[data-post-id="${postId}"] [title="[en.button_title.hide_post]"]`) ;
+            //dataPostIdParent.style.backgroundColor = 'yellow';
+            //dataPostId.style.backgroundColor = 'initial';
+            //showHideButton.style.backgroundColor = 'yellow';
