@@ -11,10 +11,22 @@ export default {
             if (!currentUser || !currentUser.admin) {
                 return;
             }
-        //----------------------------------------------------------------
-            console.log("At Start of plugin");
+        //
+        api.decorateWidget('post:after', helper => {
+            const postInTopicId = helper.attrs.topicId;
+            const str_postInTopicId = postInTopicId.toString();
+            const site_Settings = api.container.lookup('site-settings:main');
+            const ghostmode_topics = site_Settings.ghostmode_topics;
+            const isTopicHidden = ghostmode_topics.includes(str_postInTopicId);
+            const toggleTopicElement = document.querySelector("#topic-footer-button-toggleHidePost");
 
-        //----------------------------------------------------------------
+            if (isTopicHidden) {
+                toggleTopicElement.style.backgroundColor = 'red';
+            } else {
+                toggleTopicElement.style.backgroundColor = 'yellow';
+            }
+         });
+        //
 
         // Working of Hiding and showing of posts.
         api.attachWidgetAction('post-menu', 'toggleHidePost', function () {
@@ -30,7 +42,6 @@ export default {
             //const ghostmode_topics = siteSettings.ghostmode_topics;
 
             const isPostHidden = ghostmode_posts.includes(postId);
-            console.log('isPostHidden:', typeof (isPostHidden), isPostHidden);
 
             const newGhostModePosts = postId;
 
@@ -44,10 +55,6 @@ export default {
             const msg = model.cooked;
             let trimmedMsg = msg.substring(3, msg.length - 4);
             let first25trimmedMsg = trimmedMsg.substring(0, 25);
-
-            const isPostHiddenTrue = isPostHidden === true;
-            console.log('isPostHiddenTrue', isPostHiddenTrue);
-
 
             if (isPostHidden) {
                 removeSetting(api, postId);
@@ -85,7 +92,7 @@ export default {
 
                 className: isPostHidden ? 'button.topic_hidden custom-class-hidden' : 'button.topic_visible custom-class-visible',
                 icon: isPostHidden ? 'far-eye-slash' : 'far-eye',
-                title: isPostHidden ? 'button_title.hide_post' : 'button_title.show_post',
+                title: isPostHidden ? 'Hide Post' : 'Show Post',
             };
         });
         // e - Button to Hide Post
@@ -93,8 +100,8 @@ export default {
         // s - Button to Hide Topic
         api.registerTopicFooterButton({
             id: "toggleHidePost",
-            key: "far-eye",
             icon: "far-eye",
+            title: "Show/Hide Topic",
             action() {
                 const model = this.attrs;
                 const topicId = model.topic.value.id;
@@ -118,8 +125,10 @@ function addSetting(api, postId) {
             ghostmode_posts: newGhostmodePosts,
         },
     }).then(response => {
+        // eslint-disable-next-line no-console
         console.log(response);
     }).catch(error => {
+        // eslint-disable-next-line no-console
         console.error(error);
     });
 }
@@ -139,8 +148,10 @@ function removeSetting(api, postIdToRemove) {
             ghostmode_posts: newGhostmodePosts,
         },
     }).then(response => {
-        console.log('Response', response);
+        // eslint-disable-next-line no-console
+        console.log(response);
     }).catch(error => {
+        // eslint-disable-next-line no-console
         console.error(error);
     });
 }
@@ -176,8 +187,11 @@ function updateGhostmodeTopics(api, newGhostmodeTopics) {
             ghostmode_topics: newGhostmodeTopics,
         },
     }).then(response => {
-        console.log('Response', response);
+        // eslint-disable-next-line no-console
+        console.log(response);
     }).catch(error => {
+        // eslint-disable-next-line no-console
         console.error(error);
     });
 }
+

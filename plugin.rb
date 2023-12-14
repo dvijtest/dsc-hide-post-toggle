@@ -1,18 +1,14 @@
 
 # name: dsc-hide-post-toggle
 # about: Toggle button to hide/show posts, visible to admins
-# version: 0.10
+# version: 0.11
 # authors: dvijtest
-# url: null
+# url: https://github.com/dvijtest/dsc-hide-post-toggle.git
 
 register_asset "javascripts/discourse/initializers/dsc-hide-post-toggle.js.es6"
 register_asset "stylesheets/dsc-hide-post-toggle.scss"
 
 enabled_site_setting :discourse_hide_post_toggle_enabled
-
-#load File.expand_path('../lib/dsc-hide-post-toggle/engine.rb', __FILE_
-
-
 
 after_initialize do
 
