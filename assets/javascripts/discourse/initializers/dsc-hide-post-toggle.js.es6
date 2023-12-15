@@ -3,6 +3,8 @@ import { h } from 'virtual-dom';
 import { ajax } from 'discourse/lib/ajax';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 
+//Version : 0.12
+
 export default {
     name: 'dsc-hide-post-toggle',
     initialize() {
@@ -11,6 +13,7 @@ export default {
             if (!currentUser || !currentUser.admin) {
                 return;
             }
+
         //Loading
         api.decorateWidget('post:after', helper => {
             const postInTopicId = helper.attrs.topicId;

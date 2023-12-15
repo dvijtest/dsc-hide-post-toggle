@@ -1,5 +1,7 @@
 // assets/stylesheets/discourse-hide-post-toggle.scss
 
+//Version : 0.12
+
 button.topic_hidden {
     background-color: red !important;
 }
@@ -15,3 +17,56 @@ button.topic_visible {
   .custom-class-visible {
     background-color: var(--primary-low);
   }
+
+  .d-modal__title-text {
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  .d-modal__title-text:before {
+    content: ' Message from Discourse Forum';
+    visibility: visible;
+  }
+
+.d-modal__body {
+  visibility: hidden;
+  position: relative;
+}
+
+.d-modal__body::after {
+  /* Add the new content */
+  content: 'Thank you for Submitting and Contributing to our Discourse Forum';
+  display: block;
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 10;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 50px;
+  font-size: 18px;
+}
+
+.reviewable-type {
+  display: none;
+}
+
+.reviewable-actions {
+  display: none;
+  visibility: hidden;
+}
+
+
+  /*
+  .post-enqueued-modal {
+    display: none;
+  }
+
+  .modal-container {
+    display: none;
+  }
+
+  .pending-posts {
+    display: none;
+  }
+*/
