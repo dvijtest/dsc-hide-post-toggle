@@ -23,7 +23,7 @@ export default {
             if (isTopicHidden) {
                 toggleTopicElement.style.backgroundColor = 'red';
             } else {
-                toggleTopicElement.style.backgroundColor = 'yellow';
+                toggleTopicElement.style.backgroundColor = '#424949';
             }
          });
         //
@@ -139,7 +139,7 @@ function toggleHideTopic(api, topicId) {
         const newGhostmodeTopics = controller.ghostmode_topics.replace(new RegExp(`\\|${topicId}`, 'g'), '');
         updateGhostmodeTopics(api, newGhostmodeTopics);
         alert(`Topic ID ${topicId} Removed`);
-        toggleTopicElement.style.backgroundColor = 'yellow';
+        toggleTopicElement.style.backgroundColor = '#424949';
     } else {
         // Add topic ID
         const newGhostmodeTopics = `${currentGhostmodeTopics ? currentGhostmodeTopics + '|' : ''}${topicId}`;
