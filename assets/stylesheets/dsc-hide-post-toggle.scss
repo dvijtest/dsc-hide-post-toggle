@@ -18,6 +18,7 @@ button.topic_visible {
     background-color: var(--primary-low);
   }
 
+  /*
   .d-modal__title-text {
     visibility: hidden;
     position: absolute;
@@ -34,7 +35,7 @@ button.topic_visible {
 }
 
 .d-modal__body::after {
-  /* Add the new content */
+
   content: 'Thank you for Submitting and Contributing to our Discourse Forum';
   display: block;
   visibility: visible;
@@ -55,7 +56,7 @@ button.topic_visible {
   display: none;
   visibility: hidden;
 }
-
+*/
 
   /*
   .post-enqueued-modal {
