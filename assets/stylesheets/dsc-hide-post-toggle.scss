@@ -18,6 +18,8 @@ button.topic_visible {
     background-color: var(--primary-low);
   }
 
+//
+
   /*
   .d-modal__title-text {
     visibility: hidden;
@@ -58,7 +60,7 @@ button.topic_visible {
 }
 */
 
-  /*
+/*
   .post-enqueued-modal {
     display: none;
   }
@@ -70,4 +72,53 @@ button.topic_visible {
   .pending-posts {
     display: none;
   }
+*/
+
+//.d-modal__body p {
+//  visibility: hidden;
+//  position: relative;
+//}
+
+/*
+// Replace "Post Needs Approval" with new text
+
+.d-modal__title-text:after {
+  content: "Thank you for Submitting and Contributing to our Discourse Forum";
+  display: block;
+  visibility: visible;
+}
+
+// Replace the approval message with new text
+
+.d-modal__body p:first-of-type:after {
+  content: "This is the new approval message.";
+  display: block;
+  //visibility: visible;
+}
+
+// Replace the pending posts message with new text
+.d-modal__body p:last-of-type:after {
+  content: "This is the new message about pending posts.";
+  display: block; 
+  //visibility: visible;
+}
+
+// Hide original text content
+.d-modal__title-text,
+.d-modal__body p:first-of-type,
+.d-modal__body p:last-of-type {
+  visibility: hidden;
+}
+
+.d-modal__container {
+  width: 850px; // Adjust the value to your preferred width
+}
+
+.d-modal__container {
+  height: 0px; // Adjust the value to your preferred height
+}
+
+.d-modal__footer {
+  visibility: hidden;
+}
 */
