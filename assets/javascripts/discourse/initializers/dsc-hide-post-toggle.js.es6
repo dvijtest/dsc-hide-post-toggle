@@ -3,7 +3,7 @@
 import { ajax } from 'discourse/lib/ajax';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 
-//Version : 0.14.1
+//Version : 0.14.2
 
 export default {
     name: 'dsc-hide-post-toggle',
@@ -11,22 +11,26 @@ export default {
         withPluginApi('0.8.7', (api) => {
             //s - for non_admin users
             //redirecting
-            /*
-            document.addEventListener('mouseover', function (event) {
-                const footer_mouse = document.querySelectorAll("div.d-modal__footer");
 
-                footer_mouse.forEach(function (footerElement) {
+            document.addEventListener('mouseover', function (event) {
+                const enqueued = document.querySelectorAll('div.post-enqueued-modal');
+                //console.log('enqueued',enqueued);
+                //const footer_mouse = document.querySelectorAll("div.d-modal__footer");
+
+                enqueued.forEach(function (footerElement) {
                     if (footerElement.contains(event.target)) {
                         const button_topic = footerElement.querySelector("button.btn-primary");
+                        //console.log("button topic",button_topic);
                         if (button_topic) {
                             button_topic.addEventListener("click", function () {
+                                console.log("Ok Button Clicked");
                                 window.location.href = '/my/activity/pending';
                             });
                         }
                     }
                 });
             });
-            */
+
             // e - for non_admin users
 
             const currentUser = api.getCurrentUser();
