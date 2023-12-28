@@ -3,7 +3,7 @@
 import { ajax } from 'discourse/lib/ajax';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 
-//Version : 0.14
+//Version : 0.14.1
 
 export default {
     name: 'dsc-hide-post-toggle',
@@ -11,6 +11,7 @@ export default {
         withPluginApi('0.8.7', (api) => {
             //s - for non_admin users
             //redirecting
+            /*
             document.addEventListener('mouseover', function (event) {
                 const footer_mouse = document.querySelectorAll("div.d-modal__footer");
 
@@ -25,6 +26,7 @@ export default {
                     }
                 });
             });
+            */
             // e - for non_admin users
 
             const currentUser = api.getCurrentUser();
